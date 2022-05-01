@@ -5,7 +5,7 @@ import { Control, LocalForm, Errors } from "react-redux-form";
 import { Loading } from './LoadingComponent';
 import { baseUrl } from '../shared/baseUrl';
 
-function RenderCampsite({campsite}) {
+function RenderComments({comments, postComment, campsiteId}) {
     return (
         <div className="col-md-5 m-1">
             <Card>
@@ -31,7 +31,7 @@ function RenderComments({comments, addComment, campsiteId}) {
                         </div>
                     );
                 })}
-                <CommentForm campsiteId={campsiteId} addComment={addComment} />
+                <CommentForm campsiteId={campsiteId} postComment={postComment} />
             </div>
         );
     }
@@ -75,11 +75,11 @@ function CampsiteInfo(props) {
             </div>
                 <div class="row">
                     <RenderCampsite campsite={props.campsite} />
-                    <RenderComments 
+                    <RenderComments
                         comments={props.comments}
-                        addComment={props.addComment}
+                        postComment={props.postComment}
                         campsiteId={props.campsite.id}
-                    />
+                    /> 
                 </div>
             </div>
         );
@@ -97,7 +97,7 @@ class CommentForm extends Component {
 
     handleSubmit(values) {
         this.toggleModal();
-        this.props.addComment(this.props.campsiteId, values.rating, values.author, values.text);
+        this.props.postComment(this.props.campsiteId, values.rating, values.author, values.text);
     }
 
     toggleModal = () => {
